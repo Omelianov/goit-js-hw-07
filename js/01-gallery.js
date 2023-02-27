@@ -16,7 +16,7 @@ import { galleryItems } from './gallery-items.js';
 // разметку модального окна с изображением из 
 // примеров библиотеки basicLightbox.
 
-console.log(createGalleryCardsMarkup(galleryItems));
+// console.log(createGalleryCardsMarkup(galleryItems));
 
 const galleryContainer = document.querySelector('.gallery')
 const cardsMarkup = createGalleryCardsMarkup(galleryItems)
@@ -25,7 +25,7 @@ galleryContainer.insertAdjacentHTML('beforeend', cardsMarkup);
 galleryContainer.addEventListener('click', onGalleryItemClick)
 
 
-// !galleryContainer.removeEventListener('click', onGalleryItemClick); Ярослав, нужна ваша помошь.  Если я удаляю слушателя так - то скрипт не работает. и зачем в данном случае это делать, ведь сняв слушателя мы не сможем опять получить изображение в большем разрешении. Или я чего-то не допонял?  
+// !galleryContainer.removeEventListener('click', onGalleryItemClick); Ярослав, нужна ваша помошь.  Если я удаляю слушателя так - то скрипт не работает. и зачем в данном случае это делать, ведь сняв слушателя мы не сможем опять получить изображение в большем разрешении. Или я чего-то не допонял? 
 
 
 function createGalleryCardsMarkup(galleryItems) {
@@ -58,24 +58,21 @@ function onGalleryItemClick(event) {
 }
 
 
+
 function modalOpen(event) {
   const galleryItemOriginal = event.target.dataset.source
 
   const modal = basicLightbox.create(`<img src="${galleryItemOriginal}" width="1024" height="600">`)
   modal.show()
 
-  window.addEventListener('keydown', event => {
+  function closeModalOnEsc(event) {
     if (event.code !== 'Escape') {
       return
     }
+    console.log('key');
     modal.close()
-  })
+    window.removeEventListener('keydown', closeModalOnEsc);
+  }
+  window.addEventListener('keydown', closeModalOnEsc)
 }
 
-
-
-
-
-
-
-// remove EventListener !!!!!!!!!

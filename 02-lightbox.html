@@ -30,3 +30,28 @@
     ></script>
   </body>
 </html>
+
+<!-- function onGalleryItemClick(event) {
+  event.preventDefault()
+
+  if (event.target.nodeName !== 'IMG') {
+    return
+  }
+
+  modalOpen(event)
+}
+
+
+function modalOpen(event) {
+  const galleryItemOriginal = event.target.dataset.source
+
+  const modal = basicLightbox.create(`<img src="${galleryItemOriginal}" width="1024" height="600">`)
+  modal.show()
+
+  window.addEventListener('keydown', event => {
+    if (event.code !== 'Escape') {
+      return
+    }
+    modal.close()
+  })
+} -->
