@@ -24,10 +24,14 @@ const cardsMarkup = createGalleryCardsMarkup(galleryItems)
 galleryContainer.insertAdjacentHTML('beforeend', cardsMarkup);
 galleryContainer.addEventListener('click', onGalleryItemClick)
 
+
+// !galleryContainer.removeEventListener('click', onGalleryItemClick); Ярослав, нужна ваша помошь.  Если я удаляю слушателя так - то скрипт не работает. и зачем в данном случае это делать, ведь сняв слушателя мы не сможем опять получить изображение в большем разрешении. Или я чего-то не допонял?  
+
+
 function createGalleryCardsMarkup(galleryItems) {
-    return galleryItems
-        .map(({ preview, original, description }) => {
-            return `
+  return galleryItems
+    .map(({ preview, original, description }) => {
+      return `
       <div class="gallery__item">
         <a class="gallery__link" href="large-image.jpg">
           <img
@@ -39,11 +43,39 @@ function createGalleryCardsMarkup(galleryItems) {
         </a>
       </div>
     `
-        })
-        .join('')
+    })
+    .join('')
 }
 
-function onGalleryItemClick(evt) {
-    console.log(evt.target);
+function onGalleryItemClick(event) {
+  event.preventDefault()
+
+  if (event.target.nodeName !== 'IMG') {
+    return
+  }
+
+  modalOpen(event)
 }
 
+
+function modalOpen(event) {
+  const galleryItemOriginal = event.target.dataset.source
+
+  const modal = basicLightbox.create(`<img src="${galleryItemOriginal}" width="1024" height="600">`)
+  modal.show()
+
+  window.addEventListener('keydown', event => {
+    if (event.code !== 'Escape') {
+      return
+    }
+    modal.close()
+  })
+}
+
+
+
+
+
+
+
+// remove EventListener !!!!!!!!!
