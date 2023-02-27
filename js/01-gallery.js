@@ -76,3 +76,7 @@ function modalOpen(event) {
   window.addEventListener('keydown', closeModalOnEsc)
 }
 
+
+// или можно добавить еще один параметр
+
+// window.addEventListener('keydown', closeModalOnEsc, { once: true })
